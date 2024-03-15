@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flip Cards Game</title>
+    <style>
+        body{
+            background-color: black;
+        }
+
+        .image{
+            width: 10%;
+            display: inline;
+            margin: 50px;
+            position: center;
+            animation-delay: 2s;
+            animation-iteration-count: infinite;
+            animation-duration: 3s;
+        }
+
+        #p-flip{
+            animation-name: flipImage;    
+        }
+
+        #Images{
+            position: absolute;
+            top: 40%;
+            left: 30%;
+        }
+
+        @keyframes flipImage {
+            from {transform:scale(1)};
+            t0 {transform: scale(1.2);}
+            
+        }
+    </style>
+
+    <script>
+
+    </script>
+</head>
+<body>
+    <div id="Images">
+        <img src="images/Unturned.png" id="p-flip" class="image">
+        <img src="images/Unturned.png" id="p-cards" class="image">
+        <img src="images/Unturned.png" id="p-60" class="image">
+    </div>  
+</body>
+</html>

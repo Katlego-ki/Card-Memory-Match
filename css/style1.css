@@ -1,0 +1,9 @@
+body{
+    background-color: black;
+}
+
+.image{
+    width: 10%;
+    display: inline;
+    margin: 5px;
+}
