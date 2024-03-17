@@ -5,5 +5,28 @@ body{
 .image{
     width: 10%;
     display: inline;
-    margin: 5px;
+    margin: 50px; /*why hovering button causes other images to shift?*/
+    position: center;
+    
+}
+
+#p-button{
+    animation: flipImage 1s infinite 1s  ;  
+}
+#p-button:hover{
+    border:greenyellow solid 1px ;
+    /*border-radius: 20%;*/
+}
+
+#Images{
+    position: absolute;
+    top: 40%;
+    left: 30%;
+}
+
+@keyframes flipImage {
+    0% {transform:scale(1);}
+    50% {transform: scale(1.1);}
+    100%{transform: scale(1);}
+    
 }
