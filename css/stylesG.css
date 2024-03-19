@@ -2,13 +2,22 @@
     border: 2px solid black;
     width: 40%;
     height: 70%;
-    background-color: gray;
-
+    background-color: rgb(100,100,100,0.4);
+    position: absolute;
+    top: 10%;
+    left: 30%;
+    display: flex;
+    flex-wrap: wrap;
 }
-
+.cards-grid div{
+    background-color: rgb(120,120,30);
+    border: 1px solid green;
+    width: 25%;
+    height: 25%;
+    box-sizing: border-box;    
+}
 body{
-    background-image: url("images/");
-}
-h{
-    color: blue;
+
+    background-image: url('../images/Background/emma-francis-vpHCfunwDrQ-unsplash.jpg');
+    background-size: 100%;
 }
