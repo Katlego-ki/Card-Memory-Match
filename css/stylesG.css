@@ -1,0 +1,14 @@
+.cards-grid{
+    border: 2px solid black;
+    width: 40%;
+    height: 70%;
+    background-color: gray;
+
+}
+
+body{
+    background-image: url("images/");
+}
+h{
+    color: blue;
+}

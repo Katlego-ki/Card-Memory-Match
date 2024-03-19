@@ -1,1 +1,2 @@
-// element.classList.add("className")
+let cardsGrid = document.getElementsByClassName("cards-grid");
+for
