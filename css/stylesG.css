@@ -9,13 +9,19 @@
     display: flex;
     flex-wrap: wrap;
 }
-.cards-grid div{
-    background-color: rgb(120,120,30);
-    border: 1px solid green;
+
+.cards-grid img{
     width: 25%;
     height: 25%;
-    box-sizing: border-box;    
+    box-sizing: border-box;
+    background-image: url('../images/Unturned.png');
+    background-size: 80%;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 15%;
+    padding: 10px;
 }
+
 body{
 
     background-image: url('../images/Background/emma-francis-vpHCfunwDrQ-unsplash.jpg');
