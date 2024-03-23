@@ -45,12 +45,12 @@ for(let i = 0; i < 16; i++){
         }
         
     };
-    cardsGrid.appendChild();
+    cardsGrid.appendChild(newImg);
 }
 
 function compareImages(image1, image2){
     if(image1 != image2){
-        image1.id = image2 = "../images/Unturned.png";
+        image1.src = image2.src = "../images/Unturned.png"; //fix, image1 is not an html element.
     }
     
 }
