@@ -13,14 +13,34 @@
 .cards-grid img{
     width: 25%;
     height: 25%;
-    box-sizing: border-box;
-    background-image: url('../images/Unturned.png');
+    box-sizing: border-box; 
     background-size: 80%;
     background-position: center;
     background-repeat: no-repeat;
     border-radius: 15%;
     padding: 10px;
 }
+
+.selectedImg{
+    animation: comparePics 1s;
+}
+
+.noMatch{
+    animation: tryAgain 1s;
+}
+
+@keyframes comparePics {
+    0%{border: none;}
+    50%{border: 8px solid green;}
+    100%{border: none;}  
+}
+
+@keyframes tryAgain {
+    0%{border: none;}
+    50%{border: 8px solid red;}
+    100%{border: none;} 
+}
+
 
 body{
 

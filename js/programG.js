@@ -14,6 +14,7 @@ let image1,image2; //These images will be compared in pairs after being clicked.
 for(let i = 0; i < 16; i++){
     const newImg = document.createElement("img");
     newImg.id = i;
+    newImg.src = "images/Card-Pictures/Unturned.png";
     newImg.className= "cards";
     newImg.onclick = function flipImage(){
 
@@ -33,9 +34,11 @@ for(let i = 0; i < 16; i++){
             
             tempImages.push(newImg.id);
             console.log(tempImages); //debugging
-            
             //can we compare two selected pictures now?
-            if(imageCount===2){
+            if(imageCount===2){ 
+                image1 = document.getElementById(String(tempImages[0]));
+                image2 = document.getElementById(String(tempImages[1]));
+                image1.className = image2.className ="selectedImg";      //for styling
                 compareImages(tempImages[0],tempImages[1]);
                 imageCount = 0;
                 tempImages = [];
@@ -48,14 +51,20 @@ for(let i = 0; i < 16; i++){
 }
 
 function compareImages(id1, id2){
+    
 
     image1 = document.getElementById(id1);
     image2 = document.getElementById(id2);
 
-    console.log(image1.src)// debugging
-
     if(image1.src != image2.src){
-        image1.src = image2.src = "images/Card-Pictures/Unturned.png"; //fix, image1 is not an html element.
+        image1.className = image2.className = "noMatch"; //interesting what will happen!
+        
+        image1.src = image2.src = "images/Card-Pictures/Unturned.png";
+        //add gg sound?
+            
     }
     
 }
+
+//after selecting pictures, set class name to 'selectedImg' then style it in css to have green border and animations maybe.
+//If pics match then add onclick ="do nothing";
