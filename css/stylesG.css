@@ -21,26 +21,21 @@
     padding: 10px;
 }
 
-.selectedImg{
-    animation: comparePics 1s;
+.aMatch{
+    background-color: rgb(0, 190, 23);
+    padding: 2px;
 }
 
 .noMatch{
-    animation: tryAgain 1s;
-}
-
-@keyframes comparePics {
-    0%{border: none;}
-    50%{border: 8px solid green;}
-    100%{border: none;}  
+    animation: tryAgain 0.2s 2;
 }
 
 @keyframes tryAgain {
-    0%{border: none;}
-    50%{border: 8px solid red;}
-    100%{border: none;} 
+    0%{background-color: none;}
+    50%{background-color: red;}
+    100%{background-color: none;} 
 }
-
+/*hue-rotate ??*/
 
 body{
 

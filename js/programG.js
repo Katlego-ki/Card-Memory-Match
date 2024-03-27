@@ -15,9 +15,15 @@ for(let i = 0; i < 16; i++){
     const newImg = document.createElement("img");
     newImg.id = i;
     newImg.src = "images/Card-Pictures/Unturned.png";
-    newImg.className= "cards";
+    //newImg.className = "cards";
+
+    // Think about where your onclick is and decide if it's properly placed!!!!!!
+
     newImg.onclick = function flipImage(){
 
+        newImg.classList.toggle('selectedPics');  //what toggle does??
+
+        //randomise pics!!
         if(i<=7){
             newImg.src = cardPictures[i];
         }
@@ -35,33 +41,37 @@ for(let i = 0; i < 16; i++){
             tempImages.push(newImg.id);
             console.log(tempImages); //debugging
             //can we compare two selected pictures now?
-            if(imageCount===2){ 
-                image1 = document.getElementById(String(tempImages[0]));
-                image2 = document.getElementById(String(tempImages[1]));
-                image1.className = image2.className ="selectedImg";      //for styling
-                compareImages(tempImages[0],tempImages[1]);
-                imageCount = 0;
-                tempImages = [];
-
-            }
+        }
+        else{ 
+            image1 = document.getElementById(tempImages[0]);
+            image2 = document.getElementById(tempImages[1]);                  
+            setTimeout(compareImages, 1000);
+            //image1.className = image2.className = "";
+            imageCount = 0;
+            tempImages = []; 
         }
         
     };
     cardsGrid.appendChild(newImg);
 }
 
-function compareImages(id1, id2){
+function compareImages(){
     
-
-    image1 = document.getElementById(id1);
-    image2 = document.getElementById(id2);
+    //remove from class - selected ??
+    /*image1.classList.remove("selected");
+    image2.classList.remove("selected");  */
 
     if(image1.src != image2.src){
-        image1.className = image2.className = "noMatch"; //interesting what will happen!
+        
+        image1.classList.toggle("noMatch");
+        image2.classList.toggle("noMatch"); //interesting what will happen!
         
         image1.src = image2.src = "images/Card-Pictures/Unturned.png";
-        //add gg sound?
-            
+        //add gg sound?      
+    }
+    else{
+        image1.classList.toggle('aMatch');
+        image2.classList.toggle('aMatch');
     }
     
 }
