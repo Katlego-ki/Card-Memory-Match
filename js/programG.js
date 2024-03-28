@@ -11,70 +11,58 @@ let image1,image2; //These images will be compared in pairs after being clicked.
 //Include a function to randomize pictures for every attempt!
 
 //create img tags
-for(let i = 0; i < 16; i++){
+let index = 0;
+for(; index < 16; index++){
     const newImg = document.createElement("img");
-    newImg.id = i;
+    newImg.classList.add('cards');
+    newImg.id = index;
     newImg.src = "images/Card-Pictures/Unturned.png";
-    //newImg.className = "cards";
+    cardsGrid.appendChild(newImg);
+}
+   
+//loop through each img tag!
+const images = document.querySelectorAll('.cards'); //querySelectorAll return all nodes that match selector!
 
-    // Think about where your onclick is and decide if it's properly placed!!!!!!
+images.forEach(image => {
+    image.addEventListener('click', () => {
 
-    newImg.onclick = function flipImage(){
-
-        newImg.classList.toggle('selectedPics');  //what toggle does??
-
-        //randomise pics!!
-        if(i<=7){
-            newImg.src = cardPictures[i];
+        if(Number(image.id)<= 7){
+            image.src = cardPictures[Number(image.id)];
         }
         else{
-            newImg.src = cardPictures[15-i];
+            image.src = cardPictures[15-Number(image.id)];
         }
 
-        //when you're done try to make it more efficient and readable!
-        if(imageCount!=2){
-
-            console.log(imageCount + ": before"); //debugging
-            imageCount++;
-            console.log(imageCount + ": after"); //debugging
-            
-            tempImages.push(newImg.id);
-            console.log(tempImages); //debugging
-            //can we compare two selected pictures now?
-        }
-        else{ 
+        imageCount++; //first things first!
+        tempImages.push(image.id);
+        image.classList.add('selectedPics')
+        
+        if(imageCount===2){ 
             image1 = document.getElementById(tempImages[0]);
             image2 = document.getElementById(tempImages[1]);                  
             setTimeout(compareImages, 1000);
-            //image1.className = image2.className = "";
             imageCount = 0;
             tempImages = []; 
         }
-        
-    };
-    cardsGrid.appendChild(newImg);
-}
+    });
+ });
 
 function compareImages(){
-    
-    //remove from class - selected ??
-    /*image1.classList.remove("selected");
-    image2.classList.remove("selected");  */
-
-    if(image1.src != image2.src){
-        
-        image1.classList.toggle("noMatch");
-        image2.classList.toggle("noMatch"); //interesting what will happen!
-        
+    if(tempImages[0] != tempImages[1]){
+        document.querySelectorAll('selectedPics').classList.add('noMatch');     
         image1.src = image2.src = "images/Card-Pictures/Unturned.png";
         //add gg sound?      
     }
     else{
-        image1.classList.toggle('aMatch');
-        image2.classList.toggle('aMatch');
+        document.querySelectorAll('.selectedPics').classList.add('aMatch');
     }
-    
+    document.querySelectorAll('.selectedPics').classList.remove('selectedPics');
+    document.querySelectorAll('.selectedPics')?.classList.remove('noMatch'); //? if there was no match.
 }
 
 //after selecting pictures, set class name to 'selectedImg' then style it in css to have green border and animations maybe.
 //If pics match then add onclick ="do nothing";
+
+//When 'cleaning' code, separate creation of img tags and logic for the game!!
+
+//for each element in a class, is possible? i.e looping through elements in a class.

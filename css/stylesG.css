@@ -21,12 +21,12 @@
     padding: 10px;
 }
 
-.aMatch{
+.selectedPics .aMatch{
     background-color: rgb(0, 190, 23);
     padding: 2px;
 }
 
-.noMatch{
+.selectedPics .noMatch{
     animation: tryAgain 0.2s 2;
 }
 
