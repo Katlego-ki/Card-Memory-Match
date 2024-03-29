@@ -9,8 +9,7 @@ let image1,image2; //These images will be compared in pairs after being clicked.
 const testArr = [1,2,3,4,5];
 //Include a function to randomize pictures for every attempt!
 
-//create img tags
-
+//Create img tags.
 for(let i = 0; i < 16; i++){
     const newImg = document.createElement("img");
     newImg.classList.add('cards'); //??
@@ -19,9 +18,8 @@ for(let i = 0; i < 16; i++){
     cardsGrid.appendChild(newImg);
 }
 
-//loop through each img tag!
+//loop through each img tag to addEventLister so that each img 'flips' when cliked.
 const images = document.querySelectorAll('.cards'); //querySelectorAll return all nodes that match selector!
-
 images.forEach(image => {
     image.addEventListener('click', () => {
 
@@ -45,6 +43,7 @@ images.forEach(image => {
     });
  });
 
+//Compare the src of 2 selected images.
 function compareImages(){
 
     console.log("Before comparison there are "+  tempImages.length + " elements which are " + tempImages[0] + " and " + tempImages[1]); // debugging!
@@ -72,21 +71,5 @@ function compareImages(){
             image.classList.remove('cards');
         });
     }
-
-   /* document.querySelectorAll('.selectedPics')?.forEach(image =>{
-        image.classList.remove('selectedPics');
-    });
-
-    document.querySelectorAll('.selectedPics')?.forEach(image => {
-        image.classList.remove('noMatch');
-    }); //? if there was no match. */
-
     tempImages = []; 
 }
-
-//after selecting pictures, set class name to 'selectedImg' then style it in css to have green border and animations maybe.
-//If pics match then add onclick ="do nothing";
-
-//When 'cleaning' code, separate creation of img tags and logic for the game!!
-
-//for each element in a class, is possible? i.e looping through elements in a class.
