@@ -4,27 +4,28 @@ const cardPictures = {0: "images/Card-Pictures/apple.webp", 1:"images/Card-Pictu
  2:"images/Card-Pictures/boat.jpg", 3:"images/Card-Pictures/gazelle.webp", 4:"images/Card-Pictures/Hippo.jpg",
  5:"images/Card-Pictures/monkey.jpg", 6:"images/Card-Pictures/rubix.webp", 7:"images/Card-Pictures/penguin.jpg"};
 
-let imageCount = 0; //used for comparing 2 images
 let tempImages = new Array();
 let image1,image2; //These images will be compared in pairs after being clicked.
-
+const testArr = [1,2,3,4,5];
 //Include a function to randomize pictures for every attempt!
 
 //create img tags
-let index = 0;
-for(; index < 16; index++){
+
+for(let i = 0; i < 16; i++){
     const newImg = document.createElement("img");
-    newImg.classList.add('cards');
-    newImg.id = index;
+    newImg.classList.add('cards'); //??
+    newImg.id = i;
     newImg.src = "images/Card-Pictures/Unturned.png";
     cardsGrid.appendChild(newImg);
 }
-   
+
 //loop through each img tag!
 const images = document.querySelectorAll('.cards'); //querySelectorAll return all nodes that match selector!
 
 images.forEach(image => {
     image.addEventListener('click', () => {
+
+        image.classList.add('selectedPics');
 
         if(Number(image.id)<= 7){
             image.src = cardPictures[Number(image.id)];
@@ -33,31 +34,54 @@ images.forEach(image => {
             image.src = cardPictures[15-Number(image.id)];
         }
 
-        imageCount++; //first things first!
-        tempImages.push(image.id);
-        image.classList.add('selectedPics')
+        tempImages.push(image.src);
+        console.log("The array has " + tempImages.length + " elements");
         
-        if(imageCount===2){ 
+        if(tempImages.length === 2){ 
             image1 = document.getElementById(tempImages[0]);
             image2 = document.getElementById(tempImages[1]);                  
             setTimeout(compareImages, 1000);
-            imageCount = 0;
-            tempImages = []; 
         }
     });
  });
 
 function compareImages(){
-    if(tempImages[0] != tempImages[1]){
-        document.querySelectorAll('selectedPics').classList.add('noMatch');     
-        image1.src = image2.src = "images/Card-Pictures/Unturned.png";
+
+    console.log("Before comparison there are "+  tempImages.length + " elements which are " + tempImages[0] + " and " + tempImages[1]); // debugging!
+
+    let similar = tempImages[0] === tempImages[1]; 
+    console.log("Pictures are similar: "+ similar);
+
+    if(!similar){
+
+        document.querySelectorAll('.selectedPics').forEach((image) => {
+            image.classList.add('noMatch');
+            image.src = "images/Card-Pictures/Unturned.png";
+            image.classList.remove('selectedPics');
+            image.classList.remove('noMatch');
+
+        });  
+        
         //add gg sound?      
     }
     else{
-        document.querySelectorAll('.selectedPics').classList.add('aMatch');
+        document.querySelectorAll('.selectedPics').forEach((image) => {
+            //image.removeEventListener('click',);
+            image.classList.remove('selectedPics');
+            image.classList.add('aMatch');
+            image.classList.remove('cards');
+        });
     }
-    document.querySelectorAll('.selectedPics').classList.remove('selectedPics');
-    document.querySelectorAll('.selectedPics')?.classList.remove('noMatch'); //? if there was no match.
+
+   /* document.querySelectorAll('.selectedPics')?.forEach(image =>{
+        image.classList.remove('selectedPics');
+    });
+
+    document.querySelectorAll('.selectedPics')?.forEach(image => {
+        image.classList.remove('noMatch');
+    }); //? if there was no match. */
+
+    tempImages = []; 
 }
 
 //after selecting pictures, set class name to 'selectedImg' then style it in css to have green border and animations maybe.
