@@ -7,6 +7,7 @@ const cardPictures = {0: "images/Card-Pictures/apple.webp", 1:"images/Card-Pictu
 let tempImages = new Array();
 let image1,image2; //These images will be compared in pairs after being clicked.
 const testArr = [1,2,3,4,5];
+let imageCount = 0; //For tracking the number of images matched.
 //Include a function to randomize pictures for every attempt!
 
 //Create img tags.
@@ -16,32 +17,36 @@ for(let i = 0; i < 16; i++){
     newImg.id = i;
     newImg.src = "images/Card-Pictures/Unturned.png";
     cardsGrid.appendChild(newImg);
+    onmousedown = () => {return false}; //to disable default dragging of image elements.
 }
-
 //loop through each img tag to addEventLister so that each img 'flips' when cliked.
 const images = document.querySelectorAll('.cards'); //querySelectorAll return all nodes that match selector!
-images.forEach(image => {
-    image.addEventListener('click', () => {
 
-        image.classList.add('selectedPics');
+ let flipImage = (image)=>{
 
-        if(Number(image.id)<= 7){
-            image.src = cardPictures[Number(image.id)];
-        }
-        else{
-            image.src = cardPictures[15-Number(image.id)];
-        }
+    image.classList.add('selectedPics');
 
-        tempImages.push(image.src);
-        console.log("The array has " + tempImages.length + " elements");
-        
-        if(tempImages.length === 2){ 
-            image1 = document.getElementById(tempImages[0]);
-            image2 = document.getElementById(tempImages[1]);                  
-            setTimeout(compareImages, 1000);
-        }
-    });
+    if(Number(image.id)<= 7){
+        image.src = cardPictures[Number(image.id)];
+    }
+    else{
+        image.src = cardPictures[15-Number(image.id)];
+    }
+
+    tempImages.push(image.src);
+    console.log("The array has " + tempImages.length + " elements");
+    
+    if(tempImages.length === 2){ 
+        image1 = document.getElementById(tempImages[0]);
+        image2 = document.getElementById(tempImages[1]);                  
+        setTimeout(compareImages, 1000);
+    }
+ }
+
+ images.forEach(image => {
+    image.setAttribute('onclick', 'flipImage(this)');
  });
+
 
 //Compare the src of 2 selected images.
 function compareImages(){
@@ -69,7 +74,12 @@ function compareImages(){
             image.classList.remove('selectedPics');
             image.classList.add('aMatch');
             image.classList.remove('cards');
+            image.removeAttribute('onclick'); 
         });
+        imageCount++;
+        if(imageCount === 8){
+            alert("YOU WON!"); //add div and style it!!!
+        }
     }
     tempImages = []; 
 }
