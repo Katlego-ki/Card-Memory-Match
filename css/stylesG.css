@@ -42,3 +42,9 @@ body{
     background-image: url('../images/Background/emma-francis-vpHCfunwDrQ-unsplash.jpg');
     background-size: 100%;
 }
+
+footer{
+    background-color: gray;
+    display: flex;
+    
+}
