@@ -1,4 +1,4 @@
-const cardsGrid = document.querySelector('.cards-grid');
+const cardsGrid = document.querySelector('.cards-grid'); // Used to append newly created image tags.
 
 const cardPictures = {0: "images/Card-Pictures/apple.webp", 1:"images/Card-Pictures/dog.jpg",
  2:"images/Card-Pictures/boat.jpg", 3:"images/Card-Pictures/gazelle.webp", 4:"images/Card-Pictures/Hippo.jpg",
@@ -6,7 +6,7 @@ const cardPictures = {0: "images/Card-Pictures/apple.webp", 1:"images/Card-Pictu
 
 let tempImages = new Array();
 let image1,image2; //These images will be compared in pairs after being clicked.
-const testArr = [1,2,3,4,5];
+//const testArr = [1,2,3,4,5];  was for testing
 let imageCount = 0; //For tracking the number of images matched.
 //Include a function to randomize pictures for every attempt!
 
@@ -21,10 +21,15 @@ for(let i = 0; i < 16; i++){
 }
 //loop through each img tag to addEventLister so that each img 'flips' when cliked.
 const images = document.querySelectorAll('.cards'); //querySelectorAll return all nodes that match selector!
+images.forEach(image => {
+    image.setAttribute('onclick', 'flipImage(this)');
+ });
 
+ //element - image is passed as argument.
  let flipImage = (image)=>{
 
     image.classList.add('selectedPics');
+    image.removeAttribute('onclick');  //disable double click/flip on images!
 
     if(Number(image.id)<= 7){
         image.src = cardPictures[Number(image.id)];
@@ -32,54 +37,54 @@ const images = document.querySelectorAll('.cards'); //querySelectorAll return al
     else{
         image.src = cardPictures[15-Number(image.id)];
     }
-
-    tempImages.push(image.src);
+   
+    tempImages.push(image);
     console.log("The array has " + tempImages.length + " elements");
     
-    if(tempImages.length === 2){ 
-        image1 = document.getElementById(tempImages[0]);
-        image2 = document.getElementById(tempImages[1]);                  
+    if(tempImages.length >=2){                   
         setTimeout(compareImages, 1000);
     }
  }
 
- images.forEach(image => {
-    image.setAttribute('onclick', 'flipImage(this)');
- });
-
-
 //Compare the src of 2 selected images.
 function compareImages(){
 
-    console.log("Before comparison there are "+  tempImages.length + " elements which are " + tempImages[0] + " and " + tempImages[1]); // debugging!
+    console.log("Before comparison there are "+  tempImages.length + "images"); // debugging!
 
-    let similar = tempImages[0] === tempImages[1]; 
-    console.log("Pictures are similar: "+ similar);
+    //let similar = tempImages[0] === tempImages[1]; 
+   //console.log(`Pictures are similar: ${s}`);
 
-    if(!similar){
+    while(tempImages.length >=2){
 
-        document.querySelectorAll('.selectedPics').forEach((image) => {
-            image.classList.add('noMatch');
-            image.src = "images/Card-Pictures/Unturned.png";
-            image.classList.remove('selectedPics');
-            image.classList.remove('noMatch');
+        let imagePair = tempImages.splice(0,2);
+        if(!(imagePair[0].src===imagePair[1].src)){
+            console.log(`you selected image ${imagePair[0].id} and ${imagePair[1].id} for comparison "No-Match`);
 
-        });  
-        
-        //add gg sound?      
-    }
-    else{
-        document.querySelectorAll('.selectedPics').forEach((image) => {
-            //image.removeEventListener('click',);
-            image.classList.remove('selectedPics');
-            image.classList.add('aMatch');
-            image.classList.remove('cards');
-            image.removeAttribute('onclick'); 
-        });
-        imageCount++;
-        if(imageCount === 8){
-            alert("YOU WON!"); //add div and style it!!!
+            imagePair.forEach((image) => {
+                image.classList.add('noMatch');
+                image.src = "images/Card-Pictures/Unturned.png";
+                image.classList.remove('selectedPics');
+                image.classList.remove('noMatch');
+                image.setAttribute('onclick', 'flipImage(this)');
+            });        
+            //add gg sound?      
+        }
+        else{
+            console.log(`you selected image ${imagePair[0].id} and ${imagePair[1].id} for comparison "Matched"`);
+            imagePair.forEach((image) => {
+                image.classList.remove('selectedPics');
+                image.classList.add('aMatch');
+                image.classList.remove('cards');
+                image.removeAttribute('onclick'); 
+            });
+            imageCount++;
+            if(imageCount === 8){
+                alert("YOU WON!"); //add div and style it!!!
+            }
         }
     }
-    tempImages = []; 
+
+    //do wee need to return in order to break out of the fucntion?
 }
+
+//Fix the multiple images bug
