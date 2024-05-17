@@ -1,20 +1,33 @@
 const cardsGrid = document.querySelector('.cards-grid'); // Used to append newly created image tags.
 
-const cardPictures = {0: "images/Card-Pictures/apple.webp", 1:"images/Card-Pictures/dog.jpg",
- 2:"images/Card-Pictures/boat.jpg", 3:"images/Card-Pictures/gazelle.webp", 4:"images/Card-Pictures/Hippo.jpg",
- 5:"images/Card-Pictures/monkey.jpg", 6:"images/Card-Pictures/rubix.webp", 7:"images/Card-Pictures/penguin.jpg"};
+let cardPictures = ["images/Card-Pictures/apple.webp", "images/Card-Pictures/dog.jpg",
+ "images/Card-Pictures/boat.jpg", "images/Card-Pictures/gazelle.webp", "images/Card-Pictures/Hippo.jpg",
+ "images/Card-Pictures/monkey.jpg", "images/Card-Pictures/rubix.webp", "images/Card-Pictures/penguin.jpg"];
+ 
+let indicesArray = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
 
-let tempImages = new Array();
+//Using the Fisher-Yates shuffle algorithm.
+function shuffle(array){
+  for (let i = array.length - 1; i > 0; i--) {
+    let j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+    console.log(array[i]);
+  }
+}
+
+shuffle(cardPictures);
+shuffle(indicesArray);
+
+
+let tempImages = new Array(); //for storing clicked images.
 let image1,image2; //These images will be compared in pairs after being clicked.
-//const testArr = [1,2,3,4,5];  was for testing
 let imageCount = 0; //For tracking the number of images matched.
-//Include a function to randomize pictures for every attempt!
 
 //Create img tags.
 for(let i = 0; i < 16; i++){
     const newImg = document.createElement("img");
     newImg.classList.add('cards'); //??
-    newImg.id = i;
+    newImg.id = indicesArray[i];
     newImg.src = "images/Card-Pictures/Unturned.png";
     cardsGrid.appendChild(newImg);
     onmousedown = () => {return false}; //to disable default dragging of image elements.
@@ -35,7 +48,7 @@ images.forEach(image => {
         image.src = cardPictures[Number(image.id)];
     }
     else{
-        image.src = cardPictures[15-Number(image.id)];
+        image.src = cardPictures[15 - Number(image.id)];
     }
    
     tempImages.push(image);
@@ -58,7 +71,7 @@ function compareImages(){
 
         let imagePair = tempImages.splice(0,2);
         if(!(imagePair[0].src===imagePair[1].src)){
-            console.log(`you selected image ${imagePair[0].id} and ${imagePair[1].id} for comparison "No-Match`);
+            //console.log(`you selected image ${imagePair[0].id} and ${imagePair[1].id} for comparison "No-Match`);
 
             imagePair.forEach((image) => {
                 image.classList.add('noMatch');
