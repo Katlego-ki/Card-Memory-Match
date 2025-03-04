@@ -48,3 +48,44 @@ footer{
     display: flex;
     
 }
+
+/**/
+body{
+    background-color: black;
+}
+
+.image{
+    width: 10%;
+    display: inline;
+    margin: 50px; /*why hovering button causes other images to shift?*/
+    position: center;
+    
+}
+
+#p-button{
+    animation: playButton 1s infinite 1s  ;  
+}
+
+#Images{
+    position: absolute;
+    top: 40%;
+    left: 30%;
+}
+
+.timer{
+    font-size: 50px;
+    width: 70px;
+    height: 55px;
+    background-color: aliceblue;
+    text-align: center;
+    border-radius: 50%;
+}
+
+@keyframes playButton {
+    0% {transform:scale(1);}
+    50% {transform: scale(1.1);}
+    100%{transform: scale(1);} 
+}
+
+/**/
+

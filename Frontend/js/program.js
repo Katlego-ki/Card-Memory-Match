@@ -1,3 +1,24 @@
+
+const timer = document.querySelector('.timer');
+let x = 60;
+
+let countDown = setInterval(()=>{
+    x--;
+    timer.innerHTML = x;
+   
+    if(x === -1){
+        alert('Time up!');
+        clearInterval(countDown);
+        timer.innerHTML = 0;
+        
+    }
+
+    if(x <= 10){
+        timer.style.color = 'red';
+    }
+    
+}, 1000)
+
 const cardsGrid = document.querySelector('.cards-grid'); // Used to append newly created image tags.
 
 let cardPictures = ["images/Card-Pictures/apple.webp", "images/Card-Pictures/dog.jpg",
@@ -18,7 +39,6 @@ function shuffle(array){
 shuffle(cardPictures);
 shuffle(indicesArray);
 
-
 let tempImages = new Array(); //for storing clicked images.
 let image1,image2; //These images will be compared in pairs after being clicked.
 let imageCount = 0; //For tracking the number of images matched.
@@ -29,14 +49,10 @@ for(let i = 0; i < 16; i++){
     newImg.classList.add('cards'); //??
     newImg.id = indicesArray[i];
     newImg.src = "images/Card-Pictures/Unturned.png";
+    newImg.setAttribute('onclick', 'flipImage(this)');
     cardsGrid.appendChild(newImg);
     onmousedown = () => {return false}; //to disable default dragging of image elements.
 }
-//loop through each img tag to addEventLister so that each img 'flips' when cliked.
-const images = document.querySelectorAll('.cards'); //querySelectorAll return all nodes that match selector!
-images.forEach(image => {
-    image.setAttribute('onclick', 'flipImage(this)');
- });
 
  //element - image is passed as argument.
  let flipImage = (image)=>{
@@ -62,11 +78,6 @@ images.forEach(image => {
 //Compare the src of 2 selected images.
 function compareImages(){
 
-    console.log("Before comparison there are "+  tempImages.length + "images"); // debugging!
-
-    //let similar = tempImages[0] === tempImages[1]; 
-   //console.log(`Pictures are similar: ${s}`);
-
     while(tempImages.length >=2){
 
         let imagePair = tempImages.splice(0,2);
@@ -83,7 +94,7 @@ function compareImages(){
             //add gg sound?      
         }
         else{
-            console.log(`you selected image ${imagePair[0].id} and ${imagePair[1].id} for comparison "Matched"`);
+            //console.log(`you selected image ${imagePair[0].id} and ${imagePair[1].id} for comparison "Matched"`);
             imagePair.forEach((image) => {
                 image.classList.remove('selectedPics');
                 image.classList.add('aMatch');
@@ -93,11 +104,8 @@ function compareImages(){
             imageCount++;
             if(imageCount === 8){
                 alert("YOU WON!"); //add div and style it!!!
+                clearInterval(countDown);
             }
         }
     }
-
-    //do wee need to return in order to break out of the fucntion?
 }
-
-//Fix the multiple images bug
