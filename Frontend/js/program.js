@@ -9,8 +9,7 @@ let countDown = setInterval(()=>{
     if(x === -1){
         alert('Time up!');
         clearInterval(countDown);
-        timer.innerHTML = 0;
-        
+        timer.innerHTML = 0;    
     }
 
     if(x <= 10){
@@ -21,11 +20,9 @@ let countDown = setInterval(()=>{
 
 const cardsGrid = document.querySelector('.cards-grid'); // Used to append newly created image tags.
 
-let cardPictures = ["images/Card-Pictures/apple.webp", "images/Card-Pictures/dog.jpg",
- "images/Card-Pictures/boat.jpg", "images/Card-Pictures/gazelle.webp", "images/Card-Pictures/Hippo.jpg",
- "images/Card-Pictures/monkey.jpg", "images/Card-Pictures/rubix.webp", "images/Card-Pictures/penguin.jpg"];
+let cardPictures = ["apple", "dog", "boat", "gazelle", "Hippo", "monkey", "rubix", "penguin"];
  
-let indicesArray = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
+let indicesArray = [...Array(16).keys()]
 
 //Using the Fisher-Yates shuffle algorithm.
 function shuffle(array){
@@ -60,15 +57,9 @@ for(let i = 0; i < 16; i++){
     image.classList.add('selectedPics');
     image.removeAttribute('onclick');  //disable double click/flip on images!
 
-    if(Number(image.id)<= 7){
-        image.src = cardPictures[Number(image.id)];
-    }
-    else{
-        image.src = cardPictures[15 - Number(image.id)];
-    }
-   
+    let imageID = Number(image.id);
+    image.src = "images/Card-Pictures/"+ (imageID<=7? cardPictures[imageID]:cardPictures[15 - imageID])+".jpg"
     tempImages.push(image);
-    console.log("The array has " + tempImages.length + " elements");
     
     if(tempImages.length >=2){                   
         setTimeout(compareImages, 1000);
@@ -82,7 +73,6 @@ function compareImages(){
 
         let imagePair = tempImages.splice(0,2);
         if(!(imagePair[0].src===imagePair[1].src)){
-            //console.log(`you selected image ${imagePair[0].id} and ${imagePair[1].id} for comparison "No-Match`);
 
             imagePair.forEach((image) => {
                 image.classList.add('noMatch');
@@ -94,7 +84,6 @@ function compareImages(){
             //add gg sound?      
         }
         else{
-            //console.log(`you selected image ${imagePair[0].id} and ${imagePair[1].id} for comparison "Matched"`);
             imagePair.forEach((image) => {
                 image.classList.remove('selectedPics');
                 image.classList.add('aMatch');
@@ -103,7 +92,7 @@ function compareImages(){
             });
             imageCount++;
             if(imageCount === 8){
-                alert("YOU WON!"); //add div and style it!!!
+                alert("YOU WON!");
                 clearInterval(countDown);
             }
         }
