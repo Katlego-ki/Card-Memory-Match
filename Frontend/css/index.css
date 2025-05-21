@@ -1,13 +1,13 @@
 .cards-grid{
     border: 2px solid black;
-    width: 40%;
-    height: 70%;
+    height: 65vh;
+    aspect-ratio: 1/1;
     background-color: rgb(100,100,100,0.4);
-    position: absolute;
     top: 10%;
     left: 30%;
     display: flex;
     flex-wrap: wrap;
+    margin: auto;
 }
 
 .cards-grid img{
@@ -22,44 +22,33 @@
     cursor: pointer;
 }
 
-
-.selectedPics .aMatch{
-    background-color: rgb(0, 190, 23);
-    padding: 2px;
+.selectedPics{
+    animation: flipCard 0.4s;
 }
 
-.selectedPics .noMatch{
-    animation: tryAgain 0.2s 2;
-}
-
-@keyframes tryAgain {
-    0%{background-color: none;}
-    50%{background-color: red;}
-    100%{background-color: none;} 
-}
-/*hue-rotate ??*/
-
-body{
-    background-image: url('../images/Background/emma-francis-vpHCfunwDrQ-unsplash.jpg');
-    background-size: 100%;
-}
-
-footer{
-    background-color: gray;
-    display: flex;
-    
+@keyframes flipCard {
+    from{
+        transform: rotateX(90deg);
+    }
+    to{
+        transform: rotateX(0deg);
+    }
 }
 
 body{
-    background-color: black;
+    background-image: url('../images/Background/mybackground.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: grid;
+    /* grid-row: auto; */
+    height: 100vh;
 }
 
 .image{
     width: 10%;
     display: inline;
     margin: 50px;
-    position: center;
-    
+    position: center;    
 }
 
 #p-button{
@@ -73,9 +62,10 @@ body{
 }
 
 .timer{
-    font-size: 50px;
-    width: 70px;
-    height: 55px;
+    font-size: 2.5rem;
+    aspect-ratio: 1/1;
+    margin: auto;
+    height: 8vh;
     background-color: aliceblue;
     text-align: center;
     border-radius: 50%;
@@ -87,5 +77,19 @@ body{
     100%{transform: scale(1);} 
 }
 
-/**/
+.buttons{
+    margin: auto;
+    width: 20%;
+    display:flex;
+    justify-content: space-evenly;
+}
 
+.button{
+    height:40px;
+    width: 110px;
+    background-color: blue;
+    color: white;
+    border: solid 1px blue;
+    border-radius: 5px;
+    cursor: pointer;
+}

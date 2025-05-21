@@ -1,3 +1,4 @@
+onmousedown = () => {return false}; //to disable default dragging of image elements.
 
 const timer = document.querySelector('.timer');
 let x = 60;
@@ -5,7 +6,6 @@ let x = 60;
 let countDown = setInterval(()=>{
     x--;
     timer.innerHTML = x;
-   
     if(x === -1){
         alert('Time up!');
         clearInterval(countDown);
@@ -14,14 +14,12 @@ let countDown = setInterval(()=>{
 
     if(x <= 10){
         timer.style.color = 'red';
-    }
-    
+    }   
 }, 1000)
 
 const cardsGrid = document.querySelector('.cards-grid'); // Used to append newly created image tags.
 
 let cardPictures = ["apple", "dog", "boat", "gazelle", "Hippo", "monkey", "rubix", "penguin"];
- 
 let indicesArray = [...Array(16).keys()]
 
 //Using the Fisher-Yates shuffle algorithm.
@@ -29,7 +27,6 @@ function shuffle(array){
   for (let i = array.length - 1; i > 0; i--) {
     let j = Math.floor(Math.random() * (i + 1));
     [array[i], array[j]] = [array[j], array[i]];
-    console.log(array[i]);
   }
 }
 
@@ -47,8 +44,7 @@ for(let i = 0; i < 16; i++){
     newImg.id = indicesArray[i];
     newImg.src = "images/Card-Pictures/Unturned.png";
     newImg.setAttribute('onclick', 'flipImage(this)');
-    cardsGrid.appendChild(newImg);
-    onmousedown = () => {return false}; //to disable default dragging of image elements.
+    cardsGrid.appendChild(newImg); 
 }
 
  //element - image is passed as argument.
@@ -75,8 +71,8 @@ function compareImages(){
         if(!(imagePair[0].src===imagePair[1].src)){
 
             imagePair.forEach((image) => {
-                image.classList.add('noMatch');
                 image.src = "images/Card-Pictures/Unturned.png";
+                image.classList.add('noMatch');
                 image.classList.remove('selectedPics');
                 image.classList.remove('noMatch');
                 image.setAttribute('onclick', 'flipImage(this)');
