@@ -1,23 +1,46 @@
 onmousedown = () => {return false}; //to disable default dragging of image elements.
 
-const timer = document.querySelector('.timer');
-let x = 60;
+const newGameButton = document.getElementById('newGame');
+newGameButton.setAttribute('onclick', 'newGame()');
 
-let countDown = setInterval(()=>{
+const exitButton = document.getElementById('exit');
+//newGameButton.setAttribute('onclick', 'exit()');
+
+// function exit(){
+//     //exit logic here
+// }
+
+const cardsGrid = document.querySelector('.cards-grid');
+
+let countDown;
+let timer;
+
+let startTimer = () => {
+
+    const timer = document.querySelector('.timer');
+    timer.style.color = 'blue';
+    timer.innerHTML = 60;
+    let x = 60; //for tracking time
+
+    countDown = setInterval(()=>{
     x--;
-    timer.innerHTML = x;
-    if(x === -1){
+    timer.innerHTML--;
+    
+    if(x == 0){
         alert('Time up!');
-        clearInterval(countDown);
-        timer.innerHTML = 0;    
+
+        [...cardsGrid.children].forEach((child, i) => {
+            child.removeAttribute('onclick');
+        });
+
+        clearInterval(countDown);    
     }
 
     if(x <= 10){
         timer.style.color = 'red';
     }   
-}, 1000)
-
-const cardsGrid = document.querySelector('.cards-grid'); // Used to append newly created image tags.
+    }, 1000)
+}
 
 let cardPictures = ["apple", "dog", "boat", "gazelle", "Hippo", "monkey", "rubix", "penguin"];
 let indicesArray = [...Array(16).keys()]
@@ -37,14 +60,38 @@ let tempImages = new Array(); //for storing clicked images.
 let image1,image2; //These images will be compared in pairs after being clicked.
 let imageCount = 0; //For tracking the number of images matched.
 
-//Create img tags.
-for(let i = 0; i < 16; i++){
-    const newImg = document.createElement("img");
-    newImg.classList.add('cards'); //??
-    newImg.id = indicesArray[i];
-    newImg.src = "images/Card-Pictures/Unturned.png";
-    newImg.setAttribute('onclick', 'flipImage(this)');
-    cardsGrid.appendChild(newImg); 
+
+// ======== New Game ==========
+
+let newGame = () =>{
+    if([...cardsGrid.children].length > 0) {
+        clearInterval(countDown);
+
+        shuffle(cardPictures);
+        shuffle(indicesArray);
+
+        [...cardsGrid.children].forEach((child, i) => {
+            child.src = "images/Card-Pictures/Unturned.png";
+            child.setAttribute('onclick', 'flipImage(this)');
+            child.classList.remove('selectedPics', 'noMatch', 'match')
+            child.id = indicesArray[i];
+        });
+
+        startTimer();
+    } 
+    
+    else{
+        clearInterval(countDown);
+        for(let i = 0; i < 16; i++){
+            const newImg = document.createElement("img");
+            newImg.classList.add('cards'); //??
+            newImg.id = indicesArray[i];
+            newImg.src = "images/Card-Pictures/Unturned.png";
+            newImg.setAttribute('onclick', 'flipImage(this)');
+            cardsGrid.appendChild(newImg); 
+        }
+        startTimer();
+    }
 }
 
  //element - image is passed as argument.
@@ -54,8 +101,10 @@ for(let i = 0; i < 16; i++){
     image.removeAttribute('onclick');  //disable double click/flip on images!
 
     let imageID = Number(image.id);
-    image.src = "images/Card-Pictures/"+ (imageID<=7? cardPictures[imageID]:cardPictures[15 - imageID])+".jpg"
+    image.src = "images/Card-Pictures/"+ cardPictures[imageID<=7?imageID:15-imageID]+".jpg"
     tempImages.push(image);
+
+    console.log
     
     if(tempImages.length >=2){                   
         setTimeout(compareImages, 1000);
@@ -73,19 +122,18 @@ function compareImages(){
             imagePair.forEach((image) => {
                 image.src = "images/Card-Pictures/Unturned.png";
                 image.classList.add('noMatch');
-                image.classList.remove('selectedPics');
-                image.classList.remove('noMatch');
+                image.classList.remove('noMatch','selectedPics');
                 image.setAttribute('onclick', 'flipImage(this)');
             });        
             //add gg sound?      
         }
         else{
             imagePair.forEach((image) => {
-                image.classList.remove('selectedPics');
+                image.classList.remove('selectedPics', 'cards');
                 image.classList.add('aMatch');
-                image.classList.remove('cards');
                 image.removeAttribute('onclick'); 
             });
+
             imageCount++;
             if(imageCount === 8){
                 alert("YOU WON!");
